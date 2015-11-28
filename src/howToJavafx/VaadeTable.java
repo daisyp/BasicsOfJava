@@ -18,7 +18,7 @@ public class VaadeTable extends Application {
 
     Stage window;
     TableView<Product> table;
-    TextField nameInput, priceInput, amountInput;
+    TextField nameInput, priceInput, amountInput, soolInput;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,6 +42,10 @@ public class VaadeTable extends Application {
         amountColumn.setMinWidth(100);
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
+        TableColumn<Product, String> soolColumn = new TableColumn<>("Sool");
+        soolColumn.setMinWidth(100);
+        soolColumn.setCellValueFactory(new PropertyValueFactory<>("Sool"));
+
         //name input
         nameInput = new TextField();
         nameInput.setPromptText("Name");
@@ -55,6 +59,10 @@ public class VaadeTable extends Application {
         amountInput.setPromptText("Amount");
         amountInput.setMinWidth(100);
 
+        soolInput = new TextField();
+        soolInput.setPromptText("Sool");
+        soolInput.setMinWidth(100);
+
         // add or delete button
         Button addButton = new Button("Add");
         addButton.setOnAction(e -> addButtonClicked());
@@ -64,13 +72,13 @@ public class VaadeTable extends Application {
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(10, 10, 10, 10));
         hBox.setSpacing(10);
-        hBox.getChildren().addAll(nameInput, priceInput, amountInput, addButton, delButton);
+        hBox.getChildren().addAll(nameInput, priceInput, amountInput, soolInput, addButton, delButton);
 
 
 
         table = new TableView<>();
         table.setItems(getProduct());
-        table.getColumns().addAll(nameColumn, priceColumn, amountColumn);
+        table.getColumns().addAll(nameColumn, priceColumn, amountColumn, soolColumn);
 
         VBox vBox = new VBox();
         vBox.getChildren().addAll(table, hBox);
@@ -86,10 +94,12 @@ public class VaadeTable extends Application {
         product.setName(nameInput.getText());
         product.setPrice(Double.parseDouble(priceInput.getText()));
         product.setAmount(Integer.parseInt(amountInput.getText()));
+        product.setSool(soolInput.getText());
         table.getItems().add(product);
         nameInput.clear();
         priceInput.clear();
         amountInput.clear();
+        soolInput.clear();
     }
 
     // delete button clicked

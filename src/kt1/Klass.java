@@ -6,7 +6,7 @@ public class Klass {
 		 int a = 4;
 		 int b = ++a / 5;
 		 
-		 System.out.println(a + " " + b);
+		 System.out.println("vastus on: " + a + " " + b);
 
 	}
 

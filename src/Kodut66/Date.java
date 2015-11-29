@@ -10,6 +10,7 @@ public class Date {
     private int kuu;
     private int aasta;
 
+
     public Date(int y, int m, int d) {
         p2ev = d;
         kuu = m;

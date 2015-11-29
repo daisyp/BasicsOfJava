@@ -39,6 +39,16 @@ public class Date_time {
             System.out.println(e.getMessage());
         }
 
+        /* try {
+            String date1 = new String();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            Date parsedDate = sdf.parse(date1);
+            SimpleDateFormat newDate = new SimpleDateFormat("dd.MM.yyyy");
+            System.out.println(newDate.format(parsedDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } */
+
         //check date validation
         if(isDateValide("30/01/1980", "MM/dd/yyyy")) {
             System.out.println("Date is valid");

@@ -4,12 +4,16 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.*;
@@ -22,7 +26,8 @@ public class Main extends Application {
 
     Stage window;
     TableView<Input> table;
-    TextField aineInput, ruumInput, dateInput ;
+    TextField aineInput, ruumInput, dateInput;
+    Text actionStatus;
 
     // Toob programmi esile
     public static void main(String[] args) {
@@ -32,9 +37,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
-        window.setTitle("Organiseerija");
-        final javafx.scene.control.Label label = new javafx.scene.control.Label("Ajaplaneerija");
-        label.setFont(new Font("Arial", 20));
+        window.setTitle("Tere tulemast!");
+        final Label label = new Label("Ajaplaneerija");
+        label.setTextFill(Color.MAROON);
+        label.setFont(Font.font("Calibri", FontWeight.BOLD, 36));
+        HBox labelHb = new HBox();
+        labelHb.setAlignment(Pos.CENTER);
+        labelHb.getChildren().add(label);
 
         // Aine veerg
         TableColumn<Input, String> aineColumn = new TableColumn<>("Aine");
@@ -67,6 +76,7 @@ public class Main extends Application {
         dateInput.setPromptText("dd.mm.yyyy");
         dateInput.setMinWidth(100);
 
+
         // Lisamis- ja kustutamisnupp
         Button addButton = new Button("Lisa juurde");
         addButton.setOnAction(e -> addButtonClicked());
@@ -86,7 +96,7 @@ public class Main extends Application {
 
         // Vertikaalne
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(label, table, hBox);
+        vBox.getChildren().addAll(labelHb, table, hBox);
 
         Scene scene = new Scene(vBox);
         window.setScene(scene);

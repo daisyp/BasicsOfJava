@@ -16,8 +16,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.*;
 import java.util.Date;
+import java.util.prefs.Preferences;
 
 /**
  * Created by Daisy on 28.11.2015.
@@ -134,6 +136,24 @@ public class Main extends Application {
         return inputs;
 
     }
+
+    // Salvestamine
+    public File getPersonFilePath() {
+        Preferences prefs = Preferences.userNodeForPackage(Main.class);
+        String filePath = prefs.get("filePath", null);
+        if(filePath != null) {
+            return new File(filePath);
+        } else {
+            return null;
+        }
+    }
+
+     public void setPersonFilePath(File file) {
+         Preferences prefs = Preferences.userNodeForPackage(Main.class);
+         if(file != null) {
+              prefs.put("filePath", file.getPath());
+         }
+     }
 
     // Kontrollib kas on sisestatud ruumi number
     private boolean ruumInt(TextField input, String message) {

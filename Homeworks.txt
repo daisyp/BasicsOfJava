@@ -1,0 +1,6 @@
+Makroökonoomika	302	2016.01.04
+Java	221	2016.01.27
+Infotöötlus	306	2015.12.17
+Infotöötlus	314	2015.12.10
+Füüsika	221	2016.01.15
+Java kaitsmine	410	2015.12.11

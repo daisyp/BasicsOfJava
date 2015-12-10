@@ -10,9 +10,9 @@ public class T2ring {
 				kasutajaTaringud, arvutiTaringud);
 		
 		if (kasutajaTaringud > arvutiTaringud) {
-			System.out.println("Kasutaja võitis");
+			System.out.println("Kasutaja vÃµitis");
 		} else if (kasutajaTaringud < arvutiTaringud) {
-			System.out.println("Arvuti võitis");
+			System.out.println("Arvuti vÃµitis");
 		} else if (kasutajaTaringud == arvutiTaringud) {
 			System.out.println("Viik");
 		} else {

@@ -1,10 +1,12 @@
 package Kodut66;
 
+import javafx.ConfirmBox;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.print.Printer;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,20 +18,20 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.File;
+import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 import java.util.prefs.Preferences;
 
 /**
- * Created by Daisy on 28.11.2015.
+ * Created by Daisy
  */
 public class Main extends Application {
 
     Stage window;
     TableView<Input> table;
     TextField aineInput, ruumInput, dateInput;
-    Text actionStatus;
 
     // Toob programmi esile
     public static void main(String[] args) {
@@ -46,6 +48,7 @@ public class Main extends Application {
         HBox labelHb = new HBox();
         labelHb.setAlignment(Pos.CENTER);
         labelHb.getChildren().add(label);
+
 
         // Aine veerg
         TableColumn<Input, String> aineColumn = new TableColumn<>("Aine");
@@ -75,21 +78,25 @@ public class Main extends Application {
 
         // Sisestab kuupäeva
         dateInput = new TextField();
-        dateInput.setPromptText("dd.mm.yyyy");
+        dateInput.setPromptText("yyyy.mm.dd");
         dateInput.setMinWidth(100);
 
 
-        // Lisamis- ja kustutamisnupp
+        // Lisamis- ja kustutamisnupp, kontrollimisnupp
         Button addButton = new Button("Lisa juurde");
         addButton.setOnAction(e -> addButtonClicked());
         Button delButton = new Button("Tehtud!");
         delButton.setOnAction(e -> delButtonClicked());
+        Button checkButton = new Button("KONTROLLI!");
+        checkButton.setOnAction(e -> DateComp());
+        checkButton.setAlignment(Pos.TOP_CENTER);
+
 
         // Horisontaalne
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(10, 10, 10, 10));
-        hBox.setSpacing(10);
-        hBox.getChildren().addAll(aineInput, ruumInput, dateInput,  addButton, delButton);
+        hBox.setSpacing(30);
+        hBox.getChildren().addAll(aineInput, ruumInput, dateInput,  addButton, delButton, checkButton);
 
         // Tabel
         table = new TableView<>();
@@ -103,18 +110,26 @@ public class Main extends Application {
         Scene scene = new Scene(vBox);
         window.setScene(scene);
         window.show();
+
+        // load data
+        loadData();
     }
 
     // "Lisa" nupu vajutamine
     public void addButtonClicked() {
         Input input = new Input();
         input.setAine(aineInput.getText());
-        input.setRuum(Integer.parseInt(ruumInput.getText()));
+        try {
+            input.setRuum(Integer.parseInt(ruumInput.getText()));
+        } catch(NumberFormatException e){
+            System.out.println("Ei ole number. Palun sisesta uuesti.");
+        }
         input.setDate(dateInput.getText());
         table.getItems().add(input);
         aineInput.clear();
         ruumInput.clear();
         dateInput.clear();
+        saveData();
     }
 
 
@@ -130,30 +145,23 @@ public class Main extends Application {
     // Hoiab kogu andmestikku
     public ObservableList<Input> getInput() {
         ObservableList<Input> inputs = FXCollections.observableArrayList();
-        inputs.add(new Input("Makroökonoomika", 302, "04.01.2016"));
-        inputs.add(new Input("Java", 221, "12.01.2016"));
-        inputs.add(new Input("Infotöötlus", 306, "17.12.2015"));
         return inputs;
-
     }
 
-    // Salvestamine
-    public File getPersonFilePath() {
-        Preferences prefs = Preferences.userNodeForPackage(Main.class);
-        String filePath = prefs.get("filePath", null);
-        if(filePath != null) {
-            return new File(filePath);
-        } else {
-            return null;
+    // Testib tähtaegu
+    public void DateComp() {
+        ObservableList<Input> allHomeworks;
+        allHomeworks = table.getItems();
+        Date date = new Date();
+        SimpleDateFormat dateAtm = new SimpleDateFormat("yyyy.MM.dd");
+        for (Input homework : allHomeworks) {
+            if(homework.getDate().equals(dateAtm.format(date))) {
+                System.out.println(homework.getAine() + " " + homework.getRuum() + " " + homework.getDate());
+                Boolean answer = Deadline.display("HÄIRE!", "Sul on täna töö. Vaata õppematerjalid üle!");
+            }
         }
     }
 
-     public void setPersonFilePath(File file) {
-         Preferences prefs = Preferences.userNodeForPackage(Main.class);
-         if(file != null) {
-              prefs.put("filePath", file.getPath());
-         }
-     }
 
     // Kontrollib kas on sisestatud ruumi number
     private boolean ruumInt(TextField input, String message) {
@@ -167,5 +175,38 @@ public class Main extends Application {
         }
     }
 
+    // Andmestiku salvestamine
+    public void saveData() {
+        ObservableList<Input> allHomeworks = table.getItems();
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("Homeworks.txt", "UTF-8");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        for(Input homework : allHomeworks) {
+            writer.println(homework.getAine() + "\t" + homework.getRuum() +  "\t" + homework.getDate());
+        }
+        writer.close();
+    }
 
+    // Andmestiku lugemine tagasi
+    public void loadData() {
+        try (Scanner scanner = new Scanner(new File("Homeworks.txt"))) {
+
+            while (scanner.hasNext()){
+                String[] parts = scanner.nextLine().split("\t");
+                Input input = new Input();
+                input.setAine(parts[0]);
+                input.setRuum(Integer.parseInt(parts[1]));
+                input.setDate(parts[2]);
+                table.getItems().add(input);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

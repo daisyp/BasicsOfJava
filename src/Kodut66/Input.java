@@ -1,7 +1,7 @@
 package Kodut66;
 
 /**
- * Created by Daisy on 28.11.2015.
+ * Created by Daisy
  */
 public class Input {
 

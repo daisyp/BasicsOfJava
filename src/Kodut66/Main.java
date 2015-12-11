@@ -89,7 +89,6 @@ public class Main extends Application {
         delButton.setOnAction(e -> delButtonClicked());
         Button checkButton = new Button("KONTROLLI!");
         checkButton.setOnAction(e -> DateComp());
-        checkButton.setAlignment(Pos.TOP_CENTER);
 
 
         // Horisontaalne
@@ -111,7 +110,7 @@ public class Main extends Application {
         window.setScene(scene);
         window.show();
 
-        // load data
+        // laeb andmed
         loadData();
     }
 
@@ -157,6 +156,7 @@ public class Main extends Application {
         for (Input homework : allHomeworks) {
             if(homework.getDate().equals(dateAtm.format(date))) {
                 System.out.println(homework.getAine() + " " + homework.getRuum() + " " + homework.getDate());
+                // Kasutan Deadline.java klassi
                 Boolean answer = Deadline.display("HÄIRE!", "Sul on täna töö. Vaata õppematerjalid üle!");
             }
         }

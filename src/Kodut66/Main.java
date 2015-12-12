@@ -22,6 +22,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
+import java.util.function.BooleanSupplier;
 import java.util.prefs.Preferences;
 
 /**
@@ -138,7 +139,11 @@ public class Main extends Application {
         allProducts = table.getItems();
         productSelected = table.getSelectionModel().getSelectedItems();
 
-        productSelected.forEach(allProducts::remove);
+        ConfirmDone done = new ConfirmDone();
+        if(done.display("Kustuta", "Oled kindel, et said tehtud?") == true) {
+            productSelected.forEach(allProducts::remove);
+        }
+
     }
 
     // Hoiab kogu andmestikku
@@ -154,10 +159,18 @@ public class Main extends Application {
         Date date = new Date();
         SimpleDateFormat dateAtm = new SimpleDateFormat("yyyy.MM.dd");
         for (Input homework : allHomeworks) {
-            if(homework.getDate().equals(dateAtm.format(date))) {
-                System.out.println(homework.getAine() + " " + homework.getRuum() + " " + homework.getDate());
-                // Kasutan Deadline.java klassi
-                Boolean answer = Deadline.display("HÄIRE!", "Sul on täna töö. Vaata õppematerjalid üle!");
+            if (!homework.getDate().equals(dateAtm.format(date))){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initOwner(window);
+                alert.setTitle("Hey!");
+                alert.setHeaderText("Sul vedas!");
+                alert.setContentText("Täna pole ühtegi tööd. Mine puhka!");
+                alert.showAndWait();
+            } else if (homework.getDate().equals(dateAtm.format(date))) {
+            System.out.println(homework.getAine() + " " + homework.getRuum() + " " + homework.getDate());
+            // Kasutan Deadline.java klassi
+            Boolean answer = Deadline.display("HÄIRE!", "Sul on täna töö. Vaata õppematerjalid üle!");
+
             }
         }
     }

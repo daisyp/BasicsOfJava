@@ -5,11 +5,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Created by Daisy on 12.12.2015.
+ * Created by Daisy
  */
 public class ConfirmDone {
 
@@ -23,8 +25,12 @@ public class ConfirmDone {
         window.setMinWidth(300);
         Label label = new Label();
         label.setText(message);
+        label.setFont(Font.font("Calibri", FontWeight.EXTRA_BOLD, 15));
+        label.setAlignment(Pos.CENTER);
 
-        // Jah/Ei nupp
+        /*
+        * Jah/Ei nupp
+        */
         Button yesButton = new Button("Jah");
         Button noButton = new Button("Ei");
 

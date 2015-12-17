@@ -1,10 +1,13 @@
 package Kodut66;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -23,8 +26,12 @@ public class Deadline {
         window.setMinHeight(200);
         Label label = new Label();
         label.setText(message);
+        label.setFont(Font.font("Calibri", FontWeight.EXTRA_BOLD, 20));
+        label.setPadding(new Insets(10,10,10,10));
 
-        // Nõustun/Keeldu nupp
+        /*
+        * Nõustun/Keeldu nupp
+        */
         Button yesButton = new Button("Nõustun");
         Button noButton = new Button("Mitte veel");
 

@@ -10,7 +10,7 @@ public class Input {
     private String date;
 
 
-    //Annan esialgse väärtuse
+    // Annan esialgse väärtuse
     public Input() {
         this.aine = "";
         this.ruum = 0;

@@ -96,12 +96,12 @@ public class Main extends Application {
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(10, 10, 10, 10));
         hBox.setSpacing(30);
-        hBox.getChildren().addAll(aineInput, ruumInput, dateInput,  addButton, delButton, checkButton);
+        hBox.getChildren().addAll(aineInput, ruumInput, dateInput, addButton, delButton, checkButton);
 
         // Tabel
         table = new TableView<>();
         table.setItems(getInput());
-        table.getColumns().addAll(aineColumn, ruumColumn,  dateColumn);
+        table.getColumns().addAll(aineColumn, ruumColumn, dateColumn);
 
         // Vertikaalne
         VBox vBox = new VBox();
@@ -121,7 +121,7 @@ public class Main extends Application {
         input.setAine(aineInput.getText());
         try {
             input.setRuum(Integer.parseInt(ruumInput.getText()));
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println("Ei ole number. Palun sisesta uuesti.");
         }
         input.setDate(dateInput.getText());
@@ -129,6 +129,7 @@ public class Main extends Application {
         aineInput.clear();
         ruumInput.clear();
         dateInput.clear();
+        // Salvestab andmed
         saveData();
     }
 
@@ -140,7 +141,7 @@ public class Main extends Application {
         productSelected = table.getSelectionModel().getSelectedItems();
 
         ConfirmDone done = new ConfirmDone();
-        if(done.display("Kustuta", "Oled kindel, et said tehtud?") == true) {
+        if (done.display("Kustuta", "Oled kindel, et said tehtud?") == true) {
             productSelected.forEach(allProducts::remove);
         }
 
@@ -159,22 +160,16 @@ public class Main extends Application {
         Date date = new Date();
         SimpleDateFormat dateAtm = new SimpleDateFormat("yyyy.MM.dd");
         for (Input homework : allHomeworks) {
-            if (!homework.getDate().equals(dateAtm.format(date))){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initOwner(window);
-                alert.setTitle("Hey!");
-                alert.setHeaderText("Sul vedas!");
-                alert.setContentText("Täna pole ühtegi tööd. Mine puhka!");
-                alert.showAndWait();
-            } else if (homework.getDate().equals(dateAtm.format(date))) {
-            System.out.println(homework.getAine() + " " + homework.getRuum() + " " + homework.getDate());
-            // Kasutan Deadline.java klassi
-            Boolean answer = Deadline.display("HÄIRE!", "Sul on täna töö. Vaata õppematerjalid üle!");
+            // Kontrollib, kas täna on töö või mitte
+            if (homework.getDate().equals(dateAtm.format(date))) {
+                System.out.println(homework.getAine() + " " + homework.getRuum() + " " + homework.getDate());
+                // Kasutan Deadline.java klassi
+                Boolean answer = Deadline.display("HÄIRE!", "Sul on täna " + homework.getAine() + ". Vaata õppematerjalid üle!");
 
             }
+
         }
     }
-
 
     // Kontrollib kas on sisestatud ruumi number
     private boolean ruumInt(TextField input, String message) {

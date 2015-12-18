@@ -9,7 +9,6 @@ public class Input {
     private int ruum;
     private String date;
 
-
     /*
     * Annan esialgse väärtuse
     */
@@ -27,8 +26,6 @@ public class Input {
 
     }
 
-
-
     public String getAine() {
         return aine;
     }
@@ -36,7 +33,6 @@ public class Input {
     public void setAine(String aine) {
         this.aine = aine;
     }
-
 
     public int getRuum() {
         return ruum;

@@ -90,7 +90,6 @@ public class Main extends Application {
         dateInput.setPromptText("yyyy.mm.dd");
         dateInput.setMinWidth(100);
 
-
         /*
         * Lisamis- ja kustutamisnupp, kontrollimisnupp
         */
@@ -100,7 +99,6 @@ public class Main extends Application {
         delButton.setOnAction(e -> delButtonClicked());
         Button checkButton = new Button("KONTROLLI!");
         checkButton.setOnAction(e -> DateComp());
-
 
         /*
         * Horisontaalne asetus
@@ -154,7 +152,6 @@ public class Main extends Application {
         */
         saveData();
     }
-
 
     /*
     * "Tehtud!" nupu vajutamine

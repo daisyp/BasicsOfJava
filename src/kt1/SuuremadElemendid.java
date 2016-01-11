@@ -49,3 +49,32 @@ public class SuuremadElemendid {
         return keskmine;
     }
 }
+
+
+ /*   public static void main(String[] args) {
+        System.out.println(keskmisestParemaid(new double[] { 0., 1., 2., 3., 4. }));
+        // YOUR TESTS HERE
+    }
+
+    public static int keskmisestParemaid(double[] d) {
+
+        int arve = 0;
+        double keskmine = 0;
+        double summa = 0;
+
+        for (int i = 0; i < d.length; i++) {
+
+            summa += d[i];
+
+        }
+
+        keskmine = summa / d.length;
+
+        for (int i = 0; i < d.length; i++) {
+            if (d[i] > keskmine) {
+                arve++;
+            }
+
+        }
+        return arve; // YOUR PROGRAM HERE
+    } */

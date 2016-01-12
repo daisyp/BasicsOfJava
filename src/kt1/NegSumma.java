@@ -21,4 +21,17 @@ public class NegSumma {
         }
         return summa;  // YOUR PROGRAM HERE
     }
+
+    /*
+    public static int posSumma (int[] m) {
+      int sum = 0;
+
+      for (int i = 0; i < m.length; i++) {
+    	  if (m[i] > 0) {
+    		  sum += m[i];
+    	  }
+      }
+      return sum;
+   }
+     */
 }

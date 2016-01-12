@@ -17,4 +17,24 @@ public class SuurAlgarvJagaja {
         return 1; // TODO!!! Your code here!
     }
 
+    /*
+    public static int greatestPrimeFactor (int n) {
+	   for (int i = n; i > 0; i--) {
+		   if (isPrime(i) && n%i==0) {
+			   return i;
+		   }
+	   }
+
+
+	   return 1;
+   }
+
+   public static boolean isPrime(int n) {
+	    for (int i = 2; i < n; i++) {
+	        if (n%i == 0)
+	            return false;
+	    }
+	    return true;
+	}
+     */
 }
